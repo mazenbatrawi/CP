@@ -1,0 +1,17 @@
+<snippet>
+	<content><![CDATA[
+bool isVowel(char c){
+    if(c == 'a' || c == 'A') return 1;
+    if(c == 'o' || c == 'O') return 1;
+    if(c == 'u' || c == 'U') return 1;
+    if(c == 'i' || c == 'I') return 1;
+    if(c == 'y' || c == 'Y') return 1;
+    if(c == 'e' || c == 'E') return 1;
+    return 0;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>vowel</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
