@@ -1,0 +1,12 @@
+<snippet>
+	<content><![CDATA[
+void add_edge(int u, int v){
+    adj[u].push_back(v);
+    adj[v].push_back(u);
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>edge</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
