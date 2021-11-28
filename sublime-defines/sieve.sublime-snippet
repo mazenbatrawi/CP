@@ -10,7 +10,7 @@ void sieve(){
     }
     isprime[1] = 0;
     isprime[0] = 0;
-    isprime[0] = 1;
+    isprime[2] = 1;
     for(int i = 2; i < N; i++){
         if(isprime[i] == true){
             primes.pb(i);
