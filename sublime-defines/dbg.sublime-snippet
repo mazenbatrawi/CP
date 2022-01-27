@@ -1,40 +1,154 @@
 <snippet>
 	<content><![CDATA[
-#ifndef LOCAL
-#pragma GCC optimize("Ofast")
-#pragma GCC target("avx,avx2,fma")
-#pragma GCC optimization ("unroll-loops")
-#endif
-#define sim template < class c
-#define ris return * this
-#define dor > debug & operator <<
-#define eni(x) sim > typename \
-enable_if<sizeof dud<c>(0) x 1, debug&>::type operator<<(c i) {
-sim > struct rge { c b, e; };
-sim > rge<c> range(c i, c j) { return rge<c>{i, j}; }
-sim > auto dud(c* x) -> decltype(cerr << *x, 0);
-sim > char dud(...);
+string to_string(const string& s) {
+    return '"' + s + '"';
+}
 
-struct debug {
-#ifdef LOCAL
-~debug() { cerr << '\n'; }
-eni(!=) cerr << boolalpha << i; ris; }
-eni(==) ris << range(begin(i), end(i)); }
-sim, class b dor(pair < b, c > d) {
-  ris << "(" << d.first << ", " << d.second << ")";
+string to_string(const char* s) {
+    return to_string((string) s);
 }
-sim dor(rge<c> d) {
-  *this << "[";
-  for (auto it = d.b; it != d.e; ++it)
-    *this << ", " + 2 * (it == d.b) << *it;
-  ris << "]";
+
+string to_string(const char& c) {
+    char s[1] = {c};
+    return to_string(s);
 }
+
+string to_string(bool b) {
+    return (b ? "true" : "false");
+}
+
+string to_string(vector<bool> v) {
+    bool first = true;
+    string res = "{";
+    for (int i = 0; i < static_cast<int>(v.size()); i++) {
+        if (!first) {
+            res += ", ";
+        }
+        first = false;
+        res += to_string(v[i]);
+    }
+    res += "}";
+    return res;
+}
+
+template <size_t N>
+string to_string(bitset<N> v) {
+    string res = "";
+    for (size_t i = 0; i < N; i++) {
+        res += static_cast<char>('0' + v[i]);
+    }
+    return res;
+}
+
+template <typename A>
+string to_string(A v) {
+    bool first = true;
+    string res = "{";
+    for (const auto &x : v) {
+        if (!first) {
+            res += ", ";
+        }
+        first = false;
+        res += to_string(x);
+    }
+    res += "}";
+    return res;
+}
+
+template <typename A, typename B>
+string to_string(pair<A, B> p) {
+    return "(" + to_string(p.first) + ", " + to_string(p.second) + ")";
+}
+
+template <typename A, typename B>
+string to_string(map<A, B> p) {
+    string ret = "{";
+    int n = p.size();
+    for(auto it : p){
+        ret += to_string(it);
+        n--;
+        if(n != 0){
+            ret += ", ";
+        }
+    }
+    ret += "}";
+    return ret;
+}
+
+template <typename A>
+string to_string(queue<A> q) {
+    string ret = "{";
+    int n = q.size();
+    while(!q.empty()){
+        ret += to_string(q.front());
+        q.pop();
+        n--;
+        if(n != 0){
+            ret += ", ";
+        }
+    }
+    ret += "}";
+    return ret;
+}
+
+template <typename A>
+string to_string(stack<A> s) {
+    string ret = "{";
+    int n = s.size();
+    while(!s.empty()){
+        ret += to_string(s.top());
+        s.pop();
+        n--;
+        if(n != 0){
+            ret += ", ";
+        }
+    }
+    ret += "}";
+    return ret;
+}
+
+template <typename A>
+string to_string(priority_queue<A> pq) {
+    string ret = "{";
+    int n = pq.size();
+    while(!pq.empty()){
+        ret += to_string(pq.top());
+        pq.pop();
+        n--;
+        if(n != 0){
+            ret += ", ";
+        }
+    }
+    ret += "}";
+    return ret;
+}
+
+template <typename A, typename B, typename C>
+string to_string(tuple<A, B, C> p) {
+    return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " + to_string(get<2>(p)) + ")";
+}
+
+template <typename A, typename B, typename C, typename D>
+string to_string(tuple<A, B, C, D> p) {
+    return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " + to_string(get<2>(p)) + ", " + to_string(get<3>(p)) + ")";
+}
+
+void DBG() {
+    cerr << "]" << endl;
+}
+
+template<class H, class... T> void DBG(H h, T... t) {
+    cerr << to_string(h);
+    if(sizeof...(t))
+        cerr << ", ";
+    DBG(t...);
+}
+
+#ifndef ONLINE_JUDGE
+#define debug(...) cerr << "[" << #__VA_ARGS__ << "] : [", DBG(__VA_ARGS__)
 #else
-sim dor(const c&) { ris; }
+#define debug(...) 0
 #endif
-};
-
-#define imie(...) "[" << #__VA_ARGS__ ": " << (__VA_ARGS__) << "] "
 ]]></content>
 	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
 	<tabTrigger>dbg</tabTrigger>
