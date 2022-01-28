@@ -17,20 +17,6 @@ string to_string(bool b) {
     return (b ? "true" : "false");
 }
 
-string to_string(vector<bool> v) {
-    bool first = true;
-    string res = "{";
-    for (int i = 0; i < static_cast<int>(v.size()); i++) {
-        if (!first) {
-            res += ", ";
-        }
-        first = false;
-        res += to_string(v[i]);
-    }
-    res += "}";
-    return res;
-}
-
 template <size_t N>
 string to_string(bitset<N> v) {
     string res = "";
@@ -40,24 +26,24 @@ string to_string(bitset<N> v) {
     return res;
 }
 
+template <typename A, typename B>
+string to_string(pair<A, B> p) {
+    return "(" + to_string(p.first) + ", " + to_string(p.second) + ")";
+}
+
 template <typename A>
-string to_string(A v) {
+string to_string(vector<A> v) {
     bool first = true;
     string res = "{";
-    for (const auto &x : v) {
+    for (auto p : v) {
         if (!first) {
             res += ", ";
         }
         first = false;
-        res += to_string(x);
+        res += to_string(p);
     }
     res += "}";
     return res;
-}
-
-template <typename A, typename B>
-string to_string(pair<A, B> p) {
-    return "(" + to_string(p.first) + ", " + to_string(p.second) + ")";
 }
 
 template <typename A, typename B>
@@ -98,6 +84,22 @@ string to_string(stack<A> s) {
     while(!s.empty()){
         ret += to_string(s.top());
         s.pop();
+        n--;
+        if(n != 0){
+            ret += ", ";
+        }
+    }
+    ret += "}";
+    return ret;
+}
+
+template <typename A, typename B, typename C>
+string to_string(priority_queue<A, B, C> pq) {
+    string ret = "{";
+    int n = pq.size();
+    while(!pq.empty()){
+        ret += to_string(pq.top());
+        pq.pop();
         n--;
         if(n != 0){
             ret += ", ";
